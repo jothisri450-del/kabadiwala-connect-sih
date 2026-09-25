@@ -12,6 +12,8 @@ import sqlite3
 import os
 from datetime import datetime
 from werkzeug.utils import secure_filename
+from database import create_database
+create_database()
 
 
 # =========================================================
