@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register - Kabadiwala Connect</title>
+
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 30px 15px;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 20%,
+                    #c8e6c9,
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 80%,
+                    #a5d6a7,
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #e8f5e9,
+                    #f1f8e9
+                );
+
+            position: relative;
+
+            overflow-x: hidden;
+
+        }
+
+
+        /* BACKGROUND */
+
+        .circle {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: rgba(46,125,50,0.08);
+
+            z-index: 0;
+
+        }
+
+
+        .circle1 {
+
+            width: 350px;
+
+            height: 350px;
+
+            top: -130px;
+
+            left: -130px;
+
+        }
+
+
+        .circle2 {
+
+            width: 450px;
+
+            height: 450px;
+
+            bottom: -200px;
+
+            right: -150px;
+
+        }
+
+
+        /* CARD */
+
+        .register-card {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            max-width: 520px;
+
+            background: rgba(255,255,255,0.97);
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.15);
+
+        }
+
+
+        /* LOGO */
+
+        .logo {
+
+            text-align: center;
+
+            font-size: 50px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #2e7d32;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        /* ERROR */
+
+        .error {
+
+            background: #ffebee;
+
+            color: #c62828;
+
+            border: 1px solid #ef9a9a;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* SUCCESS */
+
+        .success {
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+            border: 1px solid #a5d6a7;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* FORM */
+
+        .form-group {
+
+            margin-bottom: 17px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+            color: #333;
+
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color: #2e7d32;
+
+            box-shadow:
+                0 0 5px rgba(46,125,50,0.2);
+
+        }
+
+
+        /* REGISTER BUTTON */
+
+        .register-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #2e7d32;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+
+        }
+
+
+        .register-button:hover {
+
+            background: #1b5e20;
+
+        }
+
+
+        /* LOGIN */
+
+        .login-text {
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #666;
+
+        }
+
+
+        .login-text a {
+
+            color: #2e7d32;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+        }
+
+
+        .login-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* HOME */
+
+        .home {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+        }
+
+
+        .home a {
+
+            color: #555;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .home a:hover {
+
+            color: #2e7d32;
+
+        }
+
+
+        /* ROLE INFORMATION */
+
+        .role-info {
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #f1f8e9;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+            color: #555;
+
+            line-height: 1.6;
+
+        }
+
+
+        .role-info strong {
+
+            color: #2e7d32;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 550px) {
+
+            .register-card {
+
+                padding: 30px 20px;
+
+            }
+
+            h1 {
+
+                font-size: 26px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- BACKGROUND -->
+
+    <div class="circle circle1"></div>
+
+    <div class="circle circle2"></div>
+
+
+
+    <!-- REGISTER CARD -->
+
+    <div class="register-card">
+
+
+        <div class="logo">
+
+            ♻️
+
+        </div>
+
+
+        <h1>
+
+            Create Your Account
+
+        </h1>
+
+
+        <p class="subtitle">
+
+            Join Kabadiwala Connect
+
+        </p>
+
+
+
+        <!-- ERROR -->
+
+        {% if error %}
+
+        <div class="error">
+
+            ⚠️ {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- SUCCESS -->
+
+        {% if success %}
+
+        <div class="success">
+
+            ✅ {{ success }}
+
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- FORM -->
+
+        <form action="/register"
+              method="POST">
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label for="name">
+
+                    👤 Full Name
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- MOBILE -->
+
+            <div class="form-group">
+
+                <label for="mobile">
+
+                    📱 Mobile Number
+
+                </label>
+
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="Enter 10-digit mobile number"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+                <label for="location">
+
+                    📍 Location
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="Enter your city or area"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+
+                    🔑 Password
+
+                </label>
+
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    minlength="4"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="confirm_password">
+
+                    🔐 Confirm Password
+
+                </label>
+
+
+                <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    placeholder="Confirm your password"
+                    minlength="4"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- ROLE -->
+
+            <div class="form-group">
+
+                <label for="role">
+
+                    👤 Select Your Role
+
+                </label>
+
+
+                <select
+                    id="role"
+                    name="role"
+                    required>
+
+
+                    <option value="">
+
+                        -- Select Role --
+
+                    </option>
+
+
+                    <option value="user">
+
+                        🏠 Public User
+
+                    </option>
+
+
+                    <option value="collector">
+
+                        ♻️ Waste Collector
+
+                    </option>
+
+
+                    <option value="recycler">
+
+                        🏭 Recycler
+
+                    </option>
+
+
+                </select>
+
+            </div>
+
+
+
+            <!-- REGISTER -->
+
+            <button
+                type="submit"
+                class="register-button">
+
+                📝 Create Account
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- LOGIN -->
+
+        <div class="login-text">
+
+            Already have an account?
+
+            <a href="/login">
+
+                Login Here
+
+            </a>
+
+        </div>
+
+
+
+        <!-- HOME -->
+
+        <div class="home">
+
+            <a href="/">
+
+                ← Back to Home
+
+            </a>
+
+        </div>
+
+
+
+        <!-- ROLE INFORMATION -->
+
+        <div class="role-info">
+
+            <strong>🏠 Public User</strong><br>
+
+            Request waste collection from your
+            home or office and track your request.
+
+            <br><br>
+
+            <strong>♻️ Waste Collector</strong><br>
+
+            Receive collection requests and
+            collect recyclable materials.
+
+            <br><br>
+
+            <strong>🏭 Recycler</strong><br>
+
+            Receive waste from collectors and
+            manage recycling activities.
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- PASSWORD CHECK -->
+
+    <script>
+
+        const form =
+            document.querySelector("form");
+
+
+        form.addEventListener(
+            "submit",
+            function(event) {
+
+
+                const password =
+                    document.getElementById(
+                        "password"
+                    ).value;
+
+
+                const confirmPassword =
+                    document.getElementById(
+                        "confirm_password"
+                    ).value;
+
+
+                if (
+                    password !==
+                    confirmPassword
+                ) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "Passwords do not match!"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

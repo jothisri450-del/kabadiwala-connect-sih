@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Kabadiwala Connect</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    #c8e6c9,
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 80%,
+                    #a5d6a7,
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #e8f5e9,
+                    #f1f8e9
+                );
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+        /* BACKGROUND CIRCLES */
+
+        .circle {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: rgba(46,125,50,0.08);
+
+        }
+
+
+        .circle1 {
+
+            width: 300px;
+            height: 300px;
+
+            top: -100px;
+            left: -100px;
+
+        }
+
+
+        .circle2 {
+
+            width: 400px;
+            height: 400px;
+
+            bottom: -180px;
+            right: -120px;
+
+        }
+
+
+        /* LOGIN CARD */
+
+        .login-card {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 90%;
+
+            max-width: 450px;
+
+            background: rgba(255,255,255,0.97);
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.15);
+
+        }
+
+
+        /* LOGO */
+
+        .logo {
+
+            text-align: center;
+
+            font-size: 50px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .title {
+
+            text-align: center;
+
+            color: #2e7d32;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        /* ERROR */
+
+        .error {
+
+            background: #ffebee;
+
+            color: #c62828;
+
+            border: 1px solid #ef9a9a;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* FORM */
+
+        .form-group {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+            color: #333;
+
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color: #2e7d32;
+
+            box-shadow:
+                0 0 5px rgba(46,125,50,0.2);
+
+        }
+
+
+        /* LOGIN BUTTON */
+
+        .login-button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #2e7d32;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+
+        }
+
+
+        .login-button:hover {
+
+            background: #1b5e20;
+
+        }
+
+
+        /* REGISTER */
+
+        .register-text {
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #666;
+
+        }
+
+
+        .register-text a {
+
+            color: #2e7d32;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+        }
+
+
+        .register-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* HOME */
+
+        .home {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+        }
+
+
+        .home a {
+
+            color: #555;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .home a:hover {
+
+            color: #2e7d32;
+
+        }
+
+
+        /* ROLE INFO */
+
+        .role-info {
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #f1f8e9;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+            color: #555;
+
+            line-height: 1.6;
+
+        }
+
+
+        .role-info strong {
+
+            color: #2e7d32;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 500px) {
+
+            .login-card {
+
+                padding: 30px 22px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- BACKGROUND -->
+
+    <div class="circle circle1"></div>
+
+    <div class="circle circle2"></div>
+
+
+
+    <!-- LOGIN CARD -->
+
+    <div class="login-card">
+
+
+        <div class="logo">
+
+            ♻️
+
+        </div>
+
+
+        <h1 class="title">
+
+            Kabadiwala Connect
+
+        </h1>
+
+
+        <p class="subtitle">
+
+            Login to your account
+
+        </p>
+
+
+
+        <!-- ERROR MESSAGE -->
+
+        {% if error %}
+
+        <div class="error">
+
+            ⚠️ {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- LOGIN FORM -->
+
+        <form action="/login"
+              method="POST">
+
+
+            <!-- MOBILE -->
+
+            <div class="form-group">
+
+                <label for="mobile">
+
+                    📱 Mobile Number
+
+                </label>
+
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="Enter 10-digit mobile number"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+
+                    🔑 Password
+
+                </label>
+
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- ROLE -->
+
+            <div class="form-group">
+
+                <label for="role">
+
+                    👤 Login As
+
+                </label>
+
+
+                <select
+                    id="role"
+                    name="role"
+                    required>
+
+                    <option value="">
+
+                        -- Select Your Role --
+
+                    </option>
+
+
+                    <option value="user">
+
+                        🏠 Public User
+
+                    </option>
+
+
+                    <option value="collector">
+
+                        ♻️ Waste Collector
+
+                    </option>
+
+
+                    <option value="recycler">
+
+                        🏭 Recycler
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- LOGIN -->
+
+            <button
+                type="submit"
+                class="login-button">
+
+                🔐 Login
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- REGISTER -->
+
+        <div class="register-text">
+
+            Don't have an account?
+
+            <a href="/register">
+
+                Create Account
+
+            </a>
+
+        </div>
+
+
+
+        <!-- HOME -->
+
+        <div class="home">
+
+            <a href="/">
+
+                ← Back to Home
+
+            </a>
+
+        </div>
+
+
+
+        <!-- ROLE INFORMATION -->
+
+        <div class="role-info">
+
+            <strong>🏠 Public User:</strong>
+            Request waste collection and track your request.
+
+            <br>
+
+            <strong>♻️ Collector:</strong>
+            Manage collection requests and collected waste.
+
+            <br>
+
+            <strong>🏭 Recycler:</strong>
+            Manage waste handover and recycling records.
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Voice Assistant - Kabadiwala Connect</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9, #f5fff6);
+            color: #333;
+        }
+
+        .navbar {
+            background: #1b5e20;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: white;
+            background: #388e3c;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 22px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.10);
+        }
+
+        .voice-icon {
+            font-size: 75px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #1b5e20;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .mic-button {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: none;
+            background: #2e7d32;
+            color: white;
+            font-size: 55px;
+            cursor: pointer;
+            margin: 30px auto 20px;
+            display: block;
+            box-shadow: 0 8px 20px rgba(46,125,50,0.3);
+            transition: 0.3s;
+        }
+
+        .mic-button:hover {
+            transform: scale(1.05);
+            background: #1b5e20;
+        }
+
+        .mic-button.listening {
+            background: #c62828;
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(198,40,40,0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 25px rgba(198,40,40,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(198,40,40,0);
+            }
+        }
+
+        .status {
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 10px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-weight: bold;
+            max-width: 600px;
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .result-box h3 {
+            color: #1b5e20;
+            margin-top: 0;
+        }
+
+        #commandText {
+            font-size: 18px;
+            color: #444;
+            min-height: 30px;
+        }
+
+        .commands {
+            margin-top: 35px;
+            text-align: left;
+        }
+
+        .commands h2 {
+            color: #1b5e20;
+        }
+
+        .command {
+            background: #f1f8e9;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 5px solid #43a047;
+        }
+
+        .manual-box {
+            margin-top: 30px;
+        }
+
+        .manual-box input {
+            width: 70%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .manual-box button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #2e7d32;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .manual-box button:hover {
+            background: #1b5e20;
+        }
+
+        @media(max-width:600px) {
+
+            .navbar {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .container {
+                margin: 20px auto;
+            }
+
+            .card {
+                padding: 25px 15px;
+            }
+
+            .manual-box input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .manual-box button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <div class="navbar">
+
+        <div class="logo">
+            ♻️ Kabadiwala Connect
+        </div>
+
+        <a href="/customer_dashboard" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="voice-icon">
+                🎙️
+            </div>
+
+            <h1>Voice Assistant</h1>
+
+            <p class="subtitle">
+                Speak naturally and use your voice to access Kabadiwala Connect services.
+            </p>
+
+
+            <!-- Microphone Button -->
+
+            <button
+                id="micButton"
+                class="mic-button"
+                onclick="startVoiceAssistant()">
+
+                🎤
+
+            </button>
+
+
+            <div id="status" class="status">
+                Click the microphone and speak your request.
+            </div>
+
+
+            <!-- Recognized Command -->
+
+            <div class="result-box">
+
+                <h3>🗣️ Your Command</h3>
+
+                <p id="commandText">
+                    Your voice command will appear here.
+                </p>
+
+            </div>
+
+
+            <!-- Example Commands -->
+
+            <div class="commands">
+
+                <h2>💬 Try saying:</h2>
+
+                <div class="command">
+                    🎤 "I want to request waste collection"
+                </div>
+
+                <div class="command">
+                    🎤 "What is the price of plastic?"
+                </div>
+
+                <div class="command">
+                    🎤 "Where is my collector?"
+                </div>
+
+                <div class="command">
+                    🎤 "Track my collection"
+                </div>
+
+                <div class="command">
+                    🎤 "I want to recycle my waste"
+                </div>
+
+            </div>
+
+
+            <!-- Manual Input -->
+
+            <div class="manual-box">
+
+                <h3>⌨️ Or type your command</h3>
+
+                <input
+                    type="text"
+                    id="manualCommand"
+                    placeholder="Example: Track my collector">
+
+                <button onclick="processCommand(
+                    document.getElementById('manualCommand').value
+                )">
+
+                    Submit
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<script>
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    let recognition;
+
+
+    /*
+       Check browser support
+    */
+
+    if (SpeechRecognition) {
+
+        recognition = new SpeechRecognition();
+
+        recognition.lang = "en-IN";
+
+        recognition.interimResults = false;
+
+        recognition.continuous = false;
+
+
+        /*
+           When voice recognition starts
+        */
+
+        recognition.onstart = function() {
+
+            document.getElementById("status").innerHTML =
+                "🔴 Listening... Please speak now.";
+
+            document.getElementById("micButton")
+                .classList.add("listening");
+
+        };
+
+
+        /*
+           When voice recognition receives speech
+        */
+
+        recognition.onresult = function(event) {
+
+            const text =
+                event.results[0][0].transcript;
+
+            document.getElementById("commandText")
+                .innerHTML = text;
+
+            document.getElementById("status")
+                .innerHTML = "✅ Command received.";
+
+            document.getElementById("micButton")
+                .classList.remove("listening");
+
+
+            processCommand(text);
+
+        };
+
+
+        /*
+           Error handling
+        */
+
+        recognition.onerror = function(event) {
+
+            document.getElementById("status").innerHTML =
+                "❌ Could not understand your voice. Please try again.";
+
+            document.getElementById("micButton")
+                .classList.remove("listening");
+
+        };
+
+
+        /*
+           Recognition stopped
+        */
+
+        recognition.onend = function() {
+
+            document.getElementById("micButton")
+                .classList.remove("listening");
+
+        };
+
+    }
+
+
+    /*
+       Start voice assistant
+    */
+
+    function startVoiceAssistant() {
+
+        if (!SpeechRecognition) {
+
+            document.getElementById("status").innerHTML =
+                "❌ Voice recognition is not supported in this browser. Please use Chrome or Edge.";
+
+            return;
+
+        }
+
+        recognition.start();
+
+    }
+
+
+    /*
+       Process voice/text command
+    */
+
+    function processCommand(command) {
+
+        if (!command || command.trim() === "") {
+
+            document.getElementById("status").innerHTML =
+                "⚠️ Please enter or speak a command.";
+
+            return;
+
+        }
+
+
+        command = command.toLowerCase().trim();
+
+
+        document.getElementById("commandText")
+            .innerHTML = command;
+
+
+        /*
+           Request Collection
+        */
+
+        if (
+            command.includes("request") ||
+            command.includes("pickup") ||
+            command.includes("pick up") ||
+            command.includes("collect") ||
+            command.includes("collection")
+        ) {
+
+            speak(
+                "Opening waste collection request page."
+            );
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "/request_collection";
+
+            }, 1500);
+
+            return;
+        }
+
+
+        /*
+           Fair Price
+        */
+
+        if (
+            command.includes("price") ||
+            command.includes("rate") ||
+            command.includes("cost") ||
+            command.includes("money")
+        ) {
+
+            speak(
+                "Opening fair price detection."
+            );
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "/fair_price";
+
+            }, 1500);
+
+            return;
+        }
+
+
+        /*
+           Collector Location
+        */
+
+        if (
+            command.includes("collector") ||
+            command.includes("location") ||
+            command.includes("where is")
+        ) {
+
+            speak(
+                "Opening live collector tracking."
+            );
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "/track_collector";
+
+            }, 1500);
+
+            return;
+        }
+
+
+        /*
+           Tracking
+        */
+
+        if (
+            command.includes("track") ||
+            command.includes("status")
+        ) {
+
+            speak(
+                "Opening collection tracking."
+            );
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "/tracking";
+
+            }, 1500);
+
+            return;
+        }
+
+
+        /*
+           Recycling
+        */
+
+        if (
+            command.includes("recycle") ||
+            command.includes("waste") ||
+            command.includes("recycling")
+        ) {
+
+            speak(
+                "Opening waste collection page."
+            );
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "/request_collection";
+
+            }, 1500);
+
+            return;
+        }
+
+
+        /*
+           Unknown command
+        */
+
+        speak(
+            "Sorry, I did not understand that command. Please try again."
+        );
+
+        document.getElementById("status").innerHTML =
+            "⚠️ Command not recognized. Please try again.";
+
+    }
+
+
+    /*
+       Text to Speech
+    */
+
+    function speak(message) {
+
+        if ("speechSynthesis" in window) {
+
+            const speech =
+                new SpeechSynthesisUtterance(message);
+
+            speech.lang = "en-IN";
+
+            speech.rate = 0.9;
+
+            speech.pitch = 1;
+
+            window.speechSynthesis.speak(speech);
+
+        }
+
+    }
+
+</script>
+
+</body>
+</html>
