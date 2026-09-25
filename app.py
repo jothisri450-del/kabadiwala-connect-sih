@@ -10,10 +10,10 @@ from flask import (
 
 import sqlite3
 import os
+from database import create_database
 from datetime import datetime
 from werkzeug.utils import secure_filename
-from database import create_database
-create_database()
+
 
 
 # =========================================================
@@ -33,6 +33,7 @@ except Exception as e:
 # =========================================================
 
 app = Flask(__name__)
+create_database()
 
 app.secret_key = "kabadiwala_connect_secret_key"
 
