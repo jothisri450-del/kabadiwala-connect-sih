@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>AI Waste Identification</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f8f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            color: #176b3a;
+        }
+
+        .upload-box {
+            border: 2px dashed #176b3a;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        input[type="file"] {
+            margin: 15px;
+        }
+
+        button {
+            background: #176b3a;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #0f4d29;
+        }
+
+        .image-preview {
+            max-width: 400px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .result {
+            background: #e8f5e9;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .item {
+            background: white;
+            margin: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #176b3a;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>♻️ AI Waste Identification</h1>
+
+    <p>Upload a waste image and let AI identify the material.</p>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if message %}
+        <p class="success">{{ message }}</p>
+    {% endif %}
+
+    <form action="/identify" method="POST" enctype="multipart/form-data">
+
+        <div class="upload-box">
+
+            <h3>📷 Select Waste Image</h3>
+
+            <input
+                type="file"
+                name="image"
+                accept="image/*"
+                required
+            >
+
+            <br><br>
+
+            <button type="submit">
+                🔍 Identify Waste
+            </button>
+
+        </div>
+
+    </form>
+
+
+    {% if image_file %}
+
+        <h2>Uploaded Image</h2>
+
+        <img
+            src="{{ url_for('static', filename='uploads/' + image_file) }}"
+            class="image-preview"
+        >
+
+    {% endif %}
+
+
+    {% if detected_items %}
+
+        <div class="result">
+
+            <h2>🤖 AI Detection Result</h2>
+
+            {% for item in detected_items %}
+
+                <div class="item">
+
+                    ♻️ <strong>{{ item.name }}</strong>
+
+                    <br>
+
+                    Confidence:
+                    <strong>{{ item.confidence }}%</strong>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+    <a href="/dashboard" class="back">
+        ← Back to Collector Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

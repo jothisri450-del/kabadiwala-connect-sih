@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Fair Price Detection</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef7ef;
+    color: #24352a;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.header {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+}
+
+.header .icon {
+    font-size: 55px;
+}
+
+.header h1 {
+    color: #207b34;
+    margin: 10px 0;
+}
+
+.header p {
+    color: #69756d;
+}
+
+.card {
+    background: white;
+    margin-top: 25px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+select,
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccd7ce;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #27843a;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1c672c;
+}
+
+.error {
+    background: #ffe7e7;
+    color: #bd2020;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.result {
+    margin-top: 25px;
+    background: #e9f8ec;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+}
+
+.result h2 {
+    color: #207b34;
+}
+
+.price {
+    font-size: 40px;
+    font-weight: bold;
+    color: #16802d;
+    margin: 15px;
+}
+
+.rate {
+    color: #65736a;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.info-box {
+    background: white;
+    border: 1px solid #dce6df;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.info-box strong {
+    display: block;
+    color: #1e4028;
+    margin-top: 5px;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #207b34;
+    font-weight: bold;
+}
+
+@media(max-width:600px) {
+
+    .info {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="icon">💰</div>
+
+        <h1>Fair Price Detection</h1>
+
+        <p>
+            Estimate the value of your recyclable waste
+            based on the selected material and quantity.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        {% if error %}
+
+        <div class="error">
+            ❌ {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            <label>
+                ♻ Waste Type
+            </label>
+
+            <select name="waste_type" required>
+
+                <option value="">
+                    -- Select Waste Type --
+                </option>
+
+                {% for material, material_rate in rates.items() %}
+
+                <option value="{{ material }}"
+                    {% if waste_type == material %}
+                    selected
+                    {% endif %}>
+
+                    {{ material }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <label>
+                ⚖ Quantity (kg)
+            </label>
+
+            <input
+                type="number"
+                name="quantity"
+                step="0.1"
+                min="0.1"
+                placeholder="Example: 5"
+                value="{{ quantity if quantity else '' }}"
+                required
+            >
+
+
+            <button type="submit">
+
+                💰 Calculate Fair Price
+
+            </button>
+
+        </form>
+
+
+        {% if price is not none %}
+
+        <div class="result">
+
+            <h2>
+                Estimated Value
+            </h2>
+
+            <div class="price">
+                ₹{{ "%.2f"|format(price) }}
+            </div>
+
+            <div class="info">
+
+                <div class="info-box">
+
+                    Waste Type
+
+                    <strong>
+                        ♻ {{ waste_type }}
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    Quantity
+
+                    <strong>
+                        ⚖ {{ quantity }} kg
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    Rate
+
+                    <strong>
+                        ₹{{ rate }}/kg
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <p class="rate">
+                This is an estimated reference price.
+                Actual prices may vary by location, quality,
+                and recycler.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+
+        <a href="/customer_dashboard" class="back">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

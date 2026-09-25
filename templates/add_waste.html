@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Waste - Kabadiwala Connect</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(circle at top left, #dcedc8, transparent 35%),
+                radial-gradient(circle at bottom right, #c8e6c9, transparent 35%),
+                #f4faf4;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 70px;
+            background: white;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 6%;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .back {
+            text-decoration: none;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+
+            margin: 45px auto;
+        }
+
+        .card {
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .title-icon {
+            font-size: 55px;
+        }
+
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            color: #333;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 9px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2e7d32;
+
+            box-shadow: 0 0 5px rgba(46,125,50,0.20);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        /* WASTE TYPES */
+
+        .waste-info {
+            background: #f1f8e9;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 25px;
+
+            color: #33691e;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+        /* BUTTON */
+
+        .submit-button {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #2e7d32;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background: #1b5e20;
+        }
+
+        /* MESSAGES */
+
+        .success {
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        .error {
+            background: #ffebee;
+
+            color: #c62828;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+
+            margin-top: 35px;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 25px auto;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        ♻️ Kabadiwala Connect
+    </div>
+
+    <a href="/dashboard" class="back">
+        ← Collector Dashboard
+    </a>
+
+</nav>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+    <div class="card">
+
+
+        <div class="title">
+
+            <div class="title-icon">
+                ♻️
+            </div>
+
+            <h1>
+                Add Collected Waste
+            </h1>
+
+        </div>
+
+
+        <p class="description">
+
+            Record the recyclable material collected
+            from the user.
+
+        </p>
+
+
+
+        <!-- SUCCESS MESSAGE -->
+
+        {% if success %}
+
+        <div class="success">
+            ✅ {{ success }}
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- ERROR MESSAGE -->
+
+        {% if error %}
+
+        <div class="error">
+            ⚠️ {{ error }}
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- WASTE INFORMATION -->
+
+        <div class="waste-info">
+
+            <strong>♻️ Supported Waste:</strong>
+
+            <br>
+
+            📄 Paper &nbsp; | &nbsp;
+            📦 Cardboard &nbsp; | &nbsp;
+            📚 Books
+
+            <br>
+
+            🥤 Plastic &nbsp; | &nbsp;
+            🔩 Metal &nbsp; | &nbsp;
+            🍾 Glass
+
+            <br>
+
+            💻 E-Waste
+
+        </div>
+
+
+
+        <!-- ================= FORM ================= -->
+
+        <form action="/add_waste" method="POST">
+
+
+            <!-- WASTE TYPE -->
+
+            <div class="form-group">
+
+                <label for="material">
+                    ♻️ Waste Type
+                </label>
+
+                <select
+                    id="material"
+                    name="material"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Waste Type --
+                    </option>
+
+                    <option value="Paper">
+                        📄 Paper
+                    </option>
+
+                    <option value="Cardboard">
+                        📦 Cardboard
+                    </option>
+
+                    <option value="Books">
+                        📚 Books
+                    </option>
+
+                    <option value="Plastic">
+                        🥤 Plastic
+                    </option>
+
+                    <option value="Metal">
+                        🔩 Metal
+                    </option>
+
+                    <option value="Glass">
+                        🍾 Glass
+                    </option>
+
+                    <option value="E-Waste">
+                        💻 E-Waste
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- WEIGHT -->
+
+            <div class="form-group">
+
+                <label for="weight">
+                    ⚖️ Weight (kg)
+                </label>
+
+                <input
+                    type="number"
+                    id="weight"
+                    name="weight"
+                    placeholder="Enter waste weight"
+                    min="0.1"
+                    step="0.1"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+                <label for="location">
+                    📍 Collection Location
+                </label>
+
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="Enter collection location"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- NOTES -->
+
+            <div class="form-group">
+
+                <label for="notes">
+                    📝 Additional Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    name="notes"
+                    placeholder="Enter any additional information about the waste..."
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="submit-button">
+
+                ➕ Add Waste
+
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+
+
+    <footer>
+
+        ♻️ Kabadiwala Connect
+
+        <br>
+
+        Connecting Users • Collectors • Authorized Recyclers
+
+    </footer>
+
+
+</div>
+
+
+</body>
+
+</html>

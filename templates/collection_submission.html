@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Collection Request Submitted</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 25px;
+
+            background: linear-gradient(
+                135deg,
+                #e8f5e9,
+                #c8e6c9,
+                #f1f8e9
+            );
+        }
+
+        .container {
+            width: 550px;
+            max-width: 100%;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .success-icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 12px;
+        }
+
+        .message {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .details {
+            background: #f1f8e9;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            text-align: left;
+
+            margin-bottom: 25px;
+        }
+
+        .details h2 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+
+            padding: 10px 0;
+
+            border-bottom: 1px solid #d5e8d4;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #444;
+        }
+
+        .value {
+            color: #333;
+            text-align: right;
+        }
+
+        .status {
+            color: #f57c00;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+
+            padding: 13px 20px;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            background: #2e7d32;
+
+            color: white;
+        }
+
+        .button:hover {
+            background: #1b5e20;
+        }
+
+        .secondary {
+            background: #757575;
+        }
+
+        .secondary:hover {
+            background: #555;
+        }
+
+        .note {
+            margin-top: 22px;
+
+            padding: 13px;
+
+            background: #fff8e1;
+
+            border-radius: 9px;
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 25px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .value {
+                text-align: left;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <!-- SUCCESS ICON -->
+
+        <div class="success-icon">
+            ✅
+        </div>
+
+
+        <!-- TITLE -->
+
+        <h1>
+            Collection Request Submitted!
+        </h1>
+
+
+        <p class="message">
+            Your waste collection request has been successfully submitted.
+            A nearby collector can now process your request.
+        </p>
+
+
+        <!-- REQUEST DETAILS -->
+
+        <div class="details">
+
+            <h2>
+                📋 Request Details
+            </h2>
+
+
+            <div class="detail-row">
+
+                <span class="label">
+                    Waste Type
+                </span>
+
+                <span class="value">
+                    {{ waste_type }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="label">
+                    Quantity
+                </span>
+
+                <span class="value">
+                    {{ quantity }} kg
+                </span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="label">
+                    Location
+                </span>
+
+                <span class="value">
+                    {{ location }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="label">
+                    Status
+                </span>
+
+                <span class="value status">
+                    🟠 Pending
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <a
+                href="/customer_dashboard"
+                class="button"
+            >
+                🏠 Dashboard
+            </a>
+
+
+            <a
+                href="/tracking"
+                class="button"
+            >
+                📍 Track Request
+            </a>
+
+        </div>
+
+
+        <!-- NOTE -->
+
+        <div class="note">
+
+            💡 Your request is currently
+
+            <strong>Pending</strong>.
+
+            The status will change when a collector processes
+            your collection request.
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

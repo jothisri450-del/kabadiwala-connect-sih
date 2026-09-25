@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Share Location</title>
+
+<style>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef7ef;
+}
+
+.container {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.icon {
+    font-size: 60px;
+}
+
+h1 {
+    color: #207b34;
+}
+
+p {
+    color: #66736b;
+    line-height: 1.6;
+}
+
+button {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #218739;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #176b2c;
+}
+
+.status {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #edf7ef;
+    color: #217337;
+    font-weight: bold;
+}
+
+.stop {
+    background: #c62828;
+    margin-top: 10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="icon">
+📍
+</div>
+
+<h1>
+Share Live Location
+</h1>
+
+<p>
+Allow Kabadiwala Connect to share your current
+location with customers while you are travelling
+for waste collection.
+</p>
+
+<button onclick="startLocation()">
+🚚 Start Sharing Location
+</button>
+
+<br><br>
+
+<button class="stop" onclick="stopLocation()">
+⛔ Stop Sharing
+</button>
+
+<div id="status" class="status">
+Location sharing is OFF.
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let watchId = null;
+
+function startLocation() {
+
+    if (!navigator.geolocation) {
+
+        document.getElementById("status").innerHTML =
+            "❌ Your browser does not support GPS.";
+
+        return;
+    }
+
+    watchId = navigator.geolocation.watchPosition(
+
+        function(position) {
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+            fetch("/update_location", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    latitude: latitude,
+                    longitude: longitude
+                })
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                if (data.success) {
+
+                    document.getElementById("status").innerHTML =
+                        "🟢 Location sharing is ACTIVE<br><br>" +
+                        "Latitude: " +
+                        latitude.toFixed(6) +
+                        "<br>" +
+                        "Longitude: " +
+                        longitude.toFixed(6);
+
+                } else {
+
+                    document.getElementById("status").innerHTML =
+                        "❌ " + data.message;
+
+                }
+
+            });
+
+        },
+
+        function(error) {
+
+            document.getElementById("status").innerHTML =
+                "❌ Please allow location permission.";
+
+        },
+
+        {
+            enableHighAccuracy: true,
+            maximumAge: 5000,
+            timeout: 10000
+        }
+
+    );
+
+}
+
+
+function stopLocation() {
+
+    if (watchId !== null) {
+
+        navigator.geolocation.clearWatch(watchId);
+
+        watchId = null;
+    }
+
+    document.getElementById("status").innerHTML =
+        "🔴 Location sharing is OFF.";
+
+}
+
+</script>
+
+</body>
+
+</html>

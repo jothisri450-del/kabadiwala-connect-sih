@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Dashboard - Kabadiwala Connect</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f8f4;
+            color: #333;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #1b5e20;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+
+        .user-name {
+            font-size: 15px;
+        }
+
+
+        .logout {
+            text-decoration: none;
+            background: #c62828;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+
+        .logout:hover {
+            background: #a51f1f;
+        }
+
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+
+        /* ================= WELCOME ================= */
+
+        .welcome {
+            background: linear-gradient(
+                135deg,
+                #2e7d32,
+                #66bb6a
+            );
+
+            color: white;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            margin-bottom: 30px;
+
+            box-shadow: 0 8px 25px rgba(0,0,0,0.10);
+        }
+
+
+        .welcome h1 {
+            margin-bottom: 10px;
+            font-size: 30px;
+        }
+
+
+        .welcome p {
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+
+        .location {
+            margin-top: 12px;
+            font-size: 15px;
+        }
+
+
+        /* ================= SECTION TITLE ================= */
+
+        .section-title {
+            color: #1b5e20;
+            margin-bottom: 20px;
+            font-size: 25px;
+        }
+
+
+        /* ================= SERVICE GRID ================= */
+
+        .services {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(240px, 1fr));
+
+            gap: 22px;
+
+            margin-bottom: 40px;
+        }
+
+
+        /* ================= SERVICE CARD ================= */
+
+        .service-card {
+            background: white;
+
+            padding: 28px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+        }
+
+
+        .service-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,0.12);
+        }
+
+
+        .service-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+
+        .service-card h3 {
+            color: #1b5e20;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+
+        .service-card p {
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 20px;
+        }
+
+
+        .service-btn {
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #2e7d32;
+
+            color: white;
+
+            padding: 11px 18px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        .service-btn:hover {
+            background: #1b5e20;
+        }
+
+
+        /* ================= VOICE ASSISTANT CARD ================= */
+
+        .voice-card {
+            border: 2px solid #81c784;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f1f8e9
+                );
+        }
+
+
+        .voice-card .service-icon {
+            font-size: 55px;
+        }
+
+
+        .voice-card .service-btn {
+            background: #1565c0;
+        }
+
+
+        .voice-card .service-btn:hover {
+            background: #0d47a1;
+        }
+
+
+        /* ================= REQUEST SECTION ================= */
+
+        .requests-section {
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 20px rgba(0,0,0,0.07);
+
+            margin-bottom: 35px;
+        }
+
+
+        .request-card {
+            border: 1px solid #ddd;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            margin-bottom: 15px;
+
+            background: #fafafa;
+        }
+
+
+        .request-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .request-header h3 {
+            color: #1b5e20;
+        }
+
+
+        /* ================= STATUS ================= */
+
+        .status {
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+
+        .status-accepted {
+            background: #d4edda;
+            color: #155724;
+        }
+
+
+        .status-completed {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+
+        .status-cancelled {
+            background: #e0e0e0;
+            color: #555;
+        }
+
+
+        .request-info {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+
+            gap: 12px;
+
+            margin-top: 15px;
+        }
+
+
+        .info-box {
+            background: #f1f8f4;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+        }
+
+
+        .info-box strong {
+            color: #1b5e20;
+        }
+
+
+        /* ================= PROGRESS ================= */
+
+        .progress-container {
+            margin-top: 18px;
+        }
+
+
+        .progress-bar {
+            height: 9px;
+
+            background: #ddd;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-fill {
+            height: 100%;
+
+            background: #43a047;
+
+            border-radius: 10px;
+        }
+
+
+        .progress-text {
+            margin-top: 7px;
+
+            font-size: 12px;
+
+            color: #666;
+        }
+
+
+        /* ================= RECYCLING INFORMATION ================= */
+
+        .recycling-section {
+            background: #e8f5e9;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .recycling-section h2 {
+            color: #1b5e20;
+
+            margin-bottom: 15px;
+        }
+
+
+        .recycling-section p {
+            line-height: 1.7;
+
+            color: #555;
+        }
+
+
+        .tips {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+
+        .tip {
+            background: white;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.05);
+        }
+
+
+        .tip h4 {
+            color: #2e7d32;
+
+            margin-bottom: 8px;
+        }
+
+
+        .tip p {
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #1b5e20;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+
+            margin-top: 40px;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 600px) {
+
+            .navbar {
+                padding: 15px;
+            }
+
+
+            .logo {
+                font-size: 20px;
+            }
+
+
+            .container {
+                width: 94%;
+            }
+
+
+            .welcome {
+                padding: 25px;
+            }
+
+
+            .welcome h1 {
+                font-size: 24px;
+            }
+
+
+            .requests-section {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        ♻️ Kabadiwala Connect
+    </div>
+
+
+    <div class="nav-right">
+
+        <span class="user-name">
+            👤 {{ name }}
+        </span>
+
+
+        <a href="/logout" class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+
+    <!-- ================= WELCOME ================= -->
+
+    <section class="welcome">
+
+        <h1>
+            Welcome, {{ name }}! 👋
+        </h1>
+
+
+        <p>
+            Welcome to Kabadiwala Connect.
+            Manage your waste collection, check fair prices,
+            track your collection and connect with recyclers easily.
+        </p>
+
+
+        {% if location %}
+
+        <div class="location">
+
+            📍 Your Location:
+            <strong>{{ location }}</strong>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+
+
+    <!-- ================= SERVICES ================= -->
+
+    <h2 class="section-title">
+        ♻️ Our Services
+    </h2>
+
+
+    <div class="services">
+
+
+        <!-- REQUEST COLLECTION -->
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🚚
+            </div>
+
+
+            <h3>
+                Request Collection
+            </h3>
+
+
+            <p>
+                Schedule a waste collection from your location.
+            </p>
+
+
+            <a
+                href="/request_collection"
+                class="service-btn">
+
+                Request Now
+
+            </a>
+
+        </div>
+
+
+
+        <!-- TRACK COLLECTION -->
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                📦
+            </div>
+
+
+            <h3>
+                Track Collection
+            </h3>
+
+
+            <p>
+                Check the current status of your waste collection request.
+            </p>
+
+
+            <a
+                href="/tracking"
+                class="service-btn">
+
+                Track Request
+
+            </a>
+
+        </div>
+
+
+
+        <!-- FAIR PRICE -->
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                💰
+            </div>
+
+
+            <h3>
+                Fair Price Detection
+            </h3>
+
+
+            <p>
+                Check the estimated fair price of your recyclable waste.
+            </p>
+
+
+            <a
+                href="/fair_price"
+                class="service-btn">
+
+                Check Price
+
+            </a>
+
+        </div>
+
+
+
+        <!-- GPS TRACKING -->
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                📍
+            </div>
+
+
+            <h3>
+                Live GPS Tracking
+            </h3>
+
+
+            <p>
+                Track the collector's latest shared location on the map.
+            </p>
+
+
+            <a
+                href="/track_collector"
+                class="service-btn">
+
+                🚚 Track Collector
+
+            </a>
+
+        </div>
+
+
+
+        <!-- ================= VOICE ASSISTANT ================= -->
+
+        <div class="service-card voice-card">
+
+            <div class="service-icon">
+                🎙️
+            </div>
+
+
+            <h3>
+                Voice Assistant
+            </h3>
+
+
+            <p>
+                Speak your request instead of typing.
+                Use your voice to access Kabadiwala Connect services.
+            </p>
+
+
+            <a
+                href="/voice_assistant"
+                class="service-btn">
+
+                🎤 Start Voice Assistant
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= COLLECTION REQUESTS ================= -->
+
+    <section class="requests-section">
+
+        <h2 class="section-title">
+            📋 My Collection Requests
+        </h2>
+
+
+        {% if requests %}
+
+
+            {% for request in requests %}
+
+
+            <div class="request-card">
+
+
+                <div class="request-header">
+
+
+                    <h3>
+                        {{ request['waste_type'] }}
+                    </h3>
+
+
+                    {% if request['status'] == 'Pending' %}
+
+                    <span class="status status-pending">
+                        ⏳ Pending
+                    </span>
+
+
+                    {% elif request['status'] == 'Accepted' %}
+
+                    <span class="status status-accepted">
+                        🚚 Accepted
+                    </span>
+
+
+                    {% elif request['status'] == 'Completed' %}
+
+                    <span class="status status-completed">
+                        ✅ Completed
+                    </span>
+
+
+                    {% elif request['status'] == 'Rejected' %}
+
+                    <span class="status status-rejected">
+                        ❌ Rejected
+                    </span>
+
+
+                    {% elif request['status'] == 'Cancelled' %}
+
+                    <span class="status status-cancelled">
+                        🚫 Cancelled
+                    </span>
+
+
+                    {% else %}
+
+                    <span class="status status-pending">
+                        {{ request['status'] }}
+                    </span>
+
+                    {% endif %}
+
+
+                </div>
+
+
+
+                <div class="request-info">
+
+
+                    <div class="info-box">
+
+                        <strong>
+                            Waste Type
+                        </strong>
+
+                        <br>
+
+                        {{ request['waste_type'] }}
+
+                    </div>
+
+
+
+                    <div class="info-box">
+
+                        <strong>
+                            Quantity
+                        </strong>
+
+                        <br>
+
+                        {{ request['quantity'] }}
+
+                    </div>
+
+
+
+                    <div class="info-box">
+
+                        <strong>
+                            Location
+                        </strong>
+
+                        <br>
+
+                        {{ request['location'] }}
+
+                    </div>
+
+
+
+                    <div class="info-box">
+
+                        <strong>
+                            Date
+                        </strong>
+
+                        <br>
+
+                        {{ request['date'] }}
+
+                    </div>
+
+
+                </div>
+
+
+
+                {% if request['description'] %}
+
+                <div class="info-box" style="margin-top:12px;">
+
+                    <strong>
+                        Description
+                    </strong>
+
+                    <br>
+
+                    {{ request['description'] }}
+
+                </div>
+
+                {% endif %}
+
+
+
+                <!-- PROGRESS -->
+
+                <div class="progress-container">
+
+
+                    {% if request['status'] == 'Pending' %}
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="width:25%;">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-text">
+
+                            Request submitted — waiting for collector.
+
+                        </div>
+
+
+                    {% elif request['status'] == 'Accepted' %}
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="width:65%;">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-text">
+
+                            Collector accepted your request.
+
+                        </div>
+
+
+                    {% elif request['status'] == 'Completed' %}
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="width:100%;">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-text">
+
+                            Collection completed successfully.
+
+                        </div>
+
+
+                    {% elif request['status'] == 'Rejected' %}
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                style="width:0%;">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-text">
+
+                            This collection request was rejected.
+
+                        </div>
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <div style="
+                text-align:center;
+                padding:30px;
+                color:#777;
+            ">
+
+                <div style="font-size:50px;">
+                    📦
+                </div>
+
+
+                <h3>
+                    No collection requests yet
+                </h3>
+
+
+                <p style="margin-top:8px;">
+                    Request a waste collection to get started.
+                </p>
+
+
+                <br>
+
+
+                <a
+                    href="/request_collection"
+                    class="service-btn">
+
+                    🚚 Request Collection
+
+                </a>
+
+            </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+
+    <!-- ================= RECYCLING INFORMATION ================= -->
+
+    <section class="recycling-section">
+
+
+        <h2>
+            🌱 Why Recycle?
+        </h2>
+
+
+        <p>
+
+            Proper waste recycling helps reduce pollution,
+            conserve natural resources and keep our environment clean.
+            Kabadiwala Connect helps connect users with waste collectors
+            and supports responsible recycling.
+
+        </p>
+
+
+
+        <div class="tips">
+
+
+            <div class="tip">
+
+                <h4>
+                    📄 Paper
+                </h4>
+
+                <p>
+                    Separate newspapers, books and cardboard
+                    from wet waste.
+                </p>
+
+            </div>
+
+
+
+            <div class="tip">
+
+                <h4>
+                    ♻️ Plastic
+                </h4>
+
+                <p>
+                    Keep recyclable plastic clean and separate
+                    different materials when possible.
+                </p>
+
+            </div>
+
+
+
+            <div class="tip">
+
+                <h4>
+                    🔩 Metal
+                </h4>
+
+                <p>
+                    Separate metal cans and scrap materials
+                    for proper recycling.
+                </p>
+
+            </div>
+
+
+
+            <div class="tip">
+
+                <h4>
+                    💻 E-Waste
+                </h4>
+
+                <p>
+                    Do not burn or dispose of electronic waste
+                    with normal household waste.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    ♻️ Kabadiwala Connect
+
+    <br>
+
+    Smart Waste Collection & Recycling Platform
+
+    <br><br>
+
+    © 2026 All Rights Reserved
+
+</footer>
+
+
+</body>
+
+</html>

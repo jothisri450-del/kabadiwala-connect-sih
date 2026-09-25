@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Request Waste Collection</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e8f5e9,
+                    #c8e6c9,
+                    #f1f8e9
+                );
+
+        }
+
+
+        .container {
+
+            width: 550px;
+
+            max-width: 100%;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.15);
+
+        }
+
+
+        /* HEADER */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .icon {
+
+            font-size: 55px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        h1 {
+
+            color: #2e7d32;
+
+            margin-bottom: 10px;
+
+            font-size: 30px;
+
+        }
+
+
+        .subtitle {
+
+            color: #666;
+
+            line-height: 1.5;
+
+            font-size: 15px;
+
+        }
+
+
+        /* ERROR */
+
+        .error {
+
+            background: #ffebee;
+
+            color: #c62828;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+        }
+
+
+        /* FORM */
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            font-weight: bold;
+
+            color: #333;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 9px;
+
+            font-size: 16px;
+
+            font-family: Arial, sans-serif;
+
+        }
+
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+
+            outline: none;
+
+            border: 2px solid #2e7d32;
+
+        }
+
+
+        textarea {
+
+            height: 100px;
+
+            resize: vertical;
+
+        }
+
+
+        /* SUBMIT BUTTON */
+
+        .submit-button {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #2e7d32;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+
+        }
+
+
+        .submit-button:hover {
+
+            background: #1b5e20;
+
+        }
+
+
+        /* NOTE */
+
+        .note {
+
+            margin-top: 20px;
+
+            padding: 14px;
+
+            background: #f1f8e9;
+
+            border-radius: 9px;
+
+            color: #555;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* BACK BUTTON */
+
+        .back {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+        }
+
+
+        .back a {
+
+            color: #2e7d32;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+
+        .back a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 15px;
+
+            }
+
+            .container {
+
+                padding: 25px;
+
+            }
+
+            h1 {
+
+                font-size: 25px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="icon">
+            🚛
+        </div>
+
+        <h1>
+            Request Waste Collection
+        </h1>
+
+        <p class="subtitle">
+            Enter your waste details and request a collection
+            from a nearby collector.
+        </p>
+
+    </div>
+
+
+    <!-- ERROR MESSAGE -->
+
+    {% if error %}
+
+    <div class="error">
+
+        ❌ {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- COLLECTION FORM -->
+
+    <form action="/request_collection" method="POST">
+
+
+        <!-- WASTE TYPE -->
+
+        <div class="form-group">
+
+            <label for="waste_type">
+                ♻️ Waste Type
+            </label>
+
+
+            <select
+                id="waste_type"
+                name="waste_type"
+                required
+            >
+
+                <option value="">
+                    -- Select Waste Type --
+                </option>
+
+                <option value="Paper">
+                    📄 Paper
+                </option>
+
+                <option value="Cardboard">
+                    📦 Cardboard
+                </option>
+
+                <option value="Books">
+                    📚 Books
+                </option>
+
+                <option value="Plastic">
+                    🥤 Plastic
+                </option>
+
+                <option value="Metal">
+                    🔩 Metal
+                </option>
+
+                <option value="Glass">
+                    🍾 Glass
+                </option>
+
+                <option value="E-Waste">
+                    💻 E-Waste
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- QUANTITY -->
+
+        <div class="form-group">
+
+            <label for="quantity">
+                ⚖️ Quantity (kg)
+            </label>
+
+
+            <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="0.1"
+                step="0.1"
+                placeholder="Example: 5"
+                required
+            >
+
+        </div>
+
+
+        <!-- LOCATION -->
+
+        <div class="form-group">
+
+            <label for="location">
+                📍 Collection Location
+            </label>
+
+
+            <input
+                type="text"
+                id="location"
+                name="location"
+                value="{{ location or '' }}"
+                placeholder="Enter your collection location"
+                required
+            >
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="form-group">
+
+            <label for="description">
+                📝 Additional Information
+            </label>
+
+
+            <textarea
+                id="description"
+                name="description"
+                placeholder="Example: 2 old laptops, newspapers, cardboard boxes, broken mobile, etc."
+            ></textarea>
+
+        </div>
+
+
+        <!-- SUBMIT -->
+
+        <button
+            type="submit"
+            class="submit-button"
+        >
+
+            🚛 Submit Collection Request
+
+        </button>
+
+
+    </form>
+
+
+    <!-- INFORMATION -->
+
+    <div class="note">
+
+        💡 <strong>Note:</strong>
+
+        Enter the approximate waste quantity in kilograms.
+
+        After submission, your request will have
+
+        <strong>Pending</strong>
+
+        status until a collector accepts it.
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <div class="back">
+
+        <a href="/customer_dashboard">
+
+            ← Back to Customer Dashboard
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
